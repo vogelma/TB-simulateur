@@ -1,0 +1,49 @@
+
+<script>
+  function myFunction(txt_choice) {
+    document.getElementById("demo").innerHTML = txt_choice;
+  }
+  
+  
+  </script>
+
+<main>
+
+<h1>Simulateur FMS</h1>
+
+<div class="fond"><p id="demo">Place holder</p></div>
+
+
+<div class="choix"><button type="button" onclick="myFunction('Premier')">Try it</button><button type="button" onclick="myFunction('Deuxieme')">Try it</button></div>
+
+
+</main>
+
+
+<style>
+  h1 {
+    font-size: 5em;
+  }
+
+  p{
+    color: white;
+  }
+
+  button{
+    margin: 10px;
+  }
+
+  .fond{
+    background-color: black;
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+  }
+
+  .choix{
+    background-color: gray;
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+  }
+</style>

@@ -1,49 +1,12 @@
 <!DOCTYPE html>
-<html>
-<head>
-<script>
-function myFunction(txt_choice) {
-  document.getElementById("demo").innerHTML = txt_choice;
-}
-</script>
-</head>
-<body>
-
-<h1>Simulateur FMS</h1>
-
-<div class="fond"><p id="demo">Place holder</p></div>
-
-
-<div class="choix"><button type="button" onclick="myFunction('Premier')">Try it</button><button type="button" onclick="myFunction('Deuxieme')">Try it</button></div>
-
-
-</body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simulateur</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="src/main.ts"></script>
+  </body>
 </html>
-
-<style>
-  h1 {
-    font-size: 5em;
-  }
-
-  p{
-    color: white;
-  }
-
-  button{
-    margin: 10px;
-  }
-
-  .fond{
-    background-color: black;
-    margin: auto;
-    width: 50%;
-    padding: 10px;
-  }
-
-  .choix{
-    background-color: gray;
-    margin: auto;
-    width: 50%;
-    padding: 10px;
-  }
-</style>
