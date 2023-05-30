@@ -1,12 +1,31 @@
 
 <script lang="ts">
-    let img_src = "01.png"
-    let items = ["01.png","02.png", "03.png", "04.png"];
 
+let status: undefined;
+
+async function getStatus() {
+  const response = await fetch('/signal');
+  status = await response.json();
+}
+
+
+  let items = {img: [
+    {alt: "cross", file: "01.png"},
+    {alt: "arrow_white", file: "02.png"},
+    {alt: "arrow_orange", file: "03.png"},
+    {alt: "arrow_green", file: "04.png"},
+  ]};
+   
+   let bd_img = items;
+   let img_src = bd_img["img"][0].file;
+
+
+    
     function changeImg(name: string) {
       img_src =  name;
     }
-    
+
+
     
     
 </script>
@@ -20,12 +39,19 @@
 </div>
   
   
-  <div class="choix">
-    {#each items as item}
-    <button on:click={()=>changeImg(item)}>{item}</button>
+  <div class="bd_img">
+    {#each bd_img["img"] as item}
+    <button on:click={()=>changeImg(item.file)}>
+    <img src={item.file} alt={item.alt} />
+    </button>
     {/each}
   </div>
-  
+
+  <button on:click={getStatus}>Roll the dice</button>
+
+  {#if status !== undefined}
+    <p>You rolled a {status}</p>
+  {/if}
   
   </main>
   
@@ -35,9 +61,6 @@
       font-size: 5em;
     }
   
-    p{
-      color: white;
-    }
   
     button{
       margin: 10px;
@@ -50,11 +73,22 @@
       padding: 10px;
     }
   
-    .choix{
+    .bd_img{
       background-color: gray;
       margin: auto;
       width: 50%;
       padding: 10px;
     }
+
+    .bd_img button{
+      width: 100px;
+      height: 100px;
+    }
+
+    .bd_img img{
+      width: 40%;
+      height: auto;
+    }
+
   </style>
 
