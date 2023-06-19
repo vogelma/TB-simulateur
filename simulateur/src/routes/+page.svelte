@@ -1,6 +1,10 @@
 
 <script lang="ts">
 
+import items from "../lib/images.json";
+//init
+let img_src = items[0].file;
+
 let status: undefined;
 
 async function getStatus() {
@@ -8,26 +12,25 @@ async function getStatus() {
   status = await response.json();
 }
 
+async function postTest(){
+  const data = [{"alt": "arrow_white", "file": "02.png"}];
 
-  let items = {img: [
-    {alt: "cross", file: "01.png"},
-    {alt: "arrow_white", file: "02.png"},
-    {alt: "arrow_orange", file: "03.png"},
-    {alt: "arrow_green", file: "04.png"},
-  ]};
-   
-   let bd_img = items;
-   let img_src = bd_img["img"][0].file;
+  //console.log(JSON.stringify(data));
 
+  const response = await fetch('/signal', {
+						method: 'POST',
+						body: JSON.stringify({data}),
+						headers: {
+							'Content-Type': 'application/json'
+						}
+					});
+}
+     
+function changeImg(name: string) {
+  img_src =  name;
+}
 
-    
-    function changeImg(name: string) {
-      img_src =  name;
-    }
-
-
-    
-    
+        
 </script>
   
   <main>
@@ -40,7 +43,7 @@ async function getStatus() {
   
   
   <div class="bd_img">
-    {#each bd_img["img"] as item}
+    {#each items as item}
     <button on:click={()=>changeImg(item.file)}>
     <img src={item.file} alt={item.alt} />
     </button>
@@ -52,7 +55,10 @@ async function getStatus() {
   {#if status !== undefined}
     <p>You rolled a {status}</p>
   {/if}
-  
+
+
+  <button on:click={postTest}>Post testing</button>
+
   </main>
   
   
