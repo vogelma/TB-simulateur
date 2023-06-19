@@ -20,18 +20,18 @@ export async function POST({request,cookies}) {
     // @ts-ignore
     let description = readFileSync("src/lib/images.json", "utf-8");
 
+    //pourrait être amélioré
     let temp = JSON.parse(description);
     temp.push(data["data"]);
     console.log(temp);
     let data_json = JSON.stringify(temp,null,2);
-    console.log(data_json);
 
     writeFile("src/lib/images.json", data_json, err => {
         if (err) console.log("Error writing file:", err);
     });
 
     }else{
-        console.log("mauvaise réception");
+        return json({status: 400});
     }
 
 

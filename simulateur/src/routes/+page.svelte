@@ -1,4 +1,3 @@
-
 <script lang="ts">
 
 import items from "../lib/images.json";
