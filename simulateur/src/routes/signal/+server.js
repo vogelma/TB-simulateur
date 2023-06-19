@@ -1,23 +1,6 @@
 import { json } from '@sveltejs/kit';
 // @ts-ignore
-import { readFile,writeFile, readdirSync } from 'node:fs';
-
-// @ts-ignore
-function jsonReader(filePath, cb) {
-    readFile(filePath, (err, fileData) => {
-      if (err) {
-        return cb && cb(err);
-      }
-      try {
-        // @ts-ignore
-        const object = JSON.parse(fileData);
-        return cb && cb(null, object);
-      } catch (err) {
-        return cb && cb(err);
-      }
-    });
-  }
-
+import { readFileSync,writeFile, readdirSync, read } from 'node:fs';
 
 
 //test pour le get
@@ -30,21 +13,22 @@ export function GET() {
 
 // @ts-ignore
 export async function POST({request,cookies}) {
-    const { description } = await request.json();
-    console.log(description);
+    const data  = await request.json();
 
-    if (description === undefined) {
+    if (data != undefined) {
     //to-dob something with the images
     // @ts-ignore
-    jsonReader("src/lib/images.json", (err, description) => {
-        if (err) {
-          console.log("Error reading file:", err);
-          return;
-        }
-        writeFile("src/lib/images.json", JSON.stringify(description,null,2), err => {
-          if (err) console.log("Error writing file:", err);
-        });
-      });
+    let description = readFileSync("src/lib/images.json", "utf-8");
+
+    let temp = JSON.parse(description);
+    temp.push(data["data"]);
+    console.log(temp);
+    let data_json = JSON.stringify(temp,null,2);
+    console.log(data_json);
+
+    writeFile("src/lib/images.json", data_json, err => {
+        if (err) console.log("Error writing file:", err);
+    });
 
     }else{
         console.log("mauvaise réception");

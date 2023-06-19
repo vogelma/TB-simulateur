@@ -7,15 +7,22 @@ let img_src = items[0].file;
 
 let status: undefined;
 
+let testing = {img: [
+    {alt: "cross", file: "01.png"},
+    {alt: "arrow_white", file: "02.png"},
+    {alt: "arrow_orange", file: "03.png"},
+    {alt: "arrow_green", file: "04.png"},
+  ]};
+
 async function getStatus() {
   const response = await fetch('/signal');
   status = await response.json();
 }
 
 async function postTest(){
-  const data = [{"alt": "arrow_white", "file": "02.png"}];
+  const data = testing["img"][0];
 
-  //console.log(JSON.stringify(data));
+  console.log(JSON.stringify(data));
 
   const response = await fetch('/signal', {
 						method: 'POST',
@@ -24,6 +31,9 @@ async function postTest(){
 							'Content-Type': 'application/json'
 						}
 					});
+
+  const { truc } = await response.json();
+  console.log(truc);
 }
      
 function changeImg(name: string) {
