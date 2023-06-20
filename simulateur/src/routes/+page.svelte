@@ -1,10 +1,21 @@
 <script lang="ts">
 
 import items from "../lib/images.json";
-//init
-let img_src = items[0].file;
 
+//init
+let img_src: string;
+let img_index: number;
 let status: undefined;
+
+//set activ signal
+items.forEach(img => {
+  if(img.show == true)
+  {
+    img_src = img.file;
+    img_index = img.index;
+  }  
+});
+
 
 let testing = {img: [
     {alt: "cross", file: "01.png"},
@@ -13,17 +24,20 @@ let testing = {img: [
     {alt: "arrow_green", file: "04.png"},
   ]};
 
+//get activ signal
 async function getStatus() {
   const response = await fetch('/signal');
-  status = await response.json();
+  let response_get = await response.json();
+  status = response_get.alt;
 }
 
+//testing better with postman
 async function postTest(){
   const data = testing["img"][0];
 
   console.log(JSON.stringify(data));
 
-  const response = await fetch('/signal', {
+  const response = await fetch('/inventaire', {
 						method: 'POST',
 						body: JSON.stringify({data}),
 						headers: {
@@ -34,39 +48,41 @@ async function postTest(){
   const { truc } = await response.json();
   console.log(truc);
 }
-     
-function changeImg(name: string) {
-  img_src =  name;
+   
+//change activ signal
+function changeImg(item: { alt: string; file: string; show: boolean; index: number; }) {
+  items[img_index].show = false;
+  item.show = true;
+  img_src = item.file;
 }
-
         
 </script>
   
-  <main>
+<main>
   
   <h1>Simulateur FMS</h1>
   
   <div class="fond">
     <img src={img_src} alt="actuel"/>
-</div>
+  </div>
   
   
   <div class="bd_img">
     {#each items as item}
-    <button on:click={()=>changeImg(item.file)}>
+    <button on:click={()=>changeImg(item)}>
     <img src={item.file} alt={item.alt} />
     </button>
     {/each}
   </div>
 
-  <button on:click={getStatus}>Roll the dice</button>
+  <button on:click={getStatus}>Get signal actif</button>
 
   {#if status !== undefined}
-    <p>You rolled a {status}</p>
+    <p>Image active {status}</p>
   {/if}
 
 
-  <button on:click={postTest}>Post testing</button>
+  <button on:click={postTest}>Post un nouveau signal</button>
 
   </main>
   

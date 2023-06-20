@@ -1,30 +1,7 @@
-//connaître l'affichaga actuel et change l'affichage actuel
-
+//renvoit l'état de la bd et ajout d'une nouveau signal
 import { json } from '@sveltejs/kit';
 // @ts-ignore
 import { readFileSync,writeFile, readdirSync, read } from 'node:fs';
-
-
-//Renvoit l'image actuellement affichée
-export function GET() {
-    var toReturn = undefined
-    let raw_data = readFileSync("src/lib/images.json", "utf-8");
-    let items = JSON.parse(raw_data);
-
-	items.forEach((/** @type {{ show: boolean; }} */ img) => {
-        if(img.show == true)
-        {
-            toReturn = img;
-        }  
-      });
-
-    if(toReturn == undefined){
-	    return json({status: 500});
-    }else{
-        return json(toReturn);
-    }
-}
-
 
 // @ts-ignore
 export async function POST({request,cookies}) {
@@ -37,7 +14,8 @@ export async function POST({request,cookies}) {
 
     //pourrait être amélioré
     let temp = JSON.parse(description);
-    //TO-DO mettre à false l'affichage actuel et mettre à true le nouveau
+    temp.push(data["data"]);
+    console.log(temp);
     let data_json = JSON.stringify(temp,null,2);
 
     writeFile("src/lib/images.json", data_json, err => {
@@ -51,4 +29,3 @@ export async function POST({request,cookies}) {
 
 	return json({status: 201});
 }
-
