@@ -37,7 +37,19 @@ export async function POST({request,cookies}) {
 
     //pourrait être amélioré
     let temp = JSON.parse(description);
-    //TO-DO mettre à false l'affichage actuel et mettre à true le nouveau
+    
+    //mettre à false l'affichage actuel et mettre à true le nouveau
+    temp.forEach((/** @type {{ index: number,show: boolean; }} */ img) => {
+        if(img.show == true)
+        {
+            img.show = false;
+        }
+        if(img.index == data["index"]) {
+            img.show = true;
+        }
+      });
+
+    
     let data_json = JSON.stringify(temp,null,2);
 
     writeFile("src/lib/images.json", data_json, err => {

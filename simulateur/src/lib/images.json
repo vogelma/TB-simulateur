@@ -2,13 +2,13 @@
   {
     "alt": "cross",
     "file": "01.png",
-    "show": false,
+    "show": true,
     "index": 0
   },
   {
     "alt": "arrow_white",
     "file": "02.png",
-    "show": true,
+    "show": false,
     "index": 1
   },
   {
