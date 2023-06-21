@@ -38,7 +38,7 @@ export async function POST({request,cookies}) {
     //pourrait être amélioré
     let temp = JSON.parse(description);
     
-    //mettre à false l'affichage actuel et mettre à true le nouveau
+    //met à false l'affichage actuel et mettre à true le nouveau
     temp.forEach((/** @type {{ index: number,show: boolean; }} */ img) => {
         if(img.show == true)
         {

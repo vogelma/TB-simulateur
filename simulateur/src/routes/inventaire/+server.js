@@ -3,6 +3,18 @@ import { json } from '@sveltejs/kit';
 // @ts-ignore
 import { readFileSync,writeFile, readdirSync, read } from 'node:fs';
 
+export function GET() {
+    let raw_data = readFileSync("src/lib/images.json", "utf-8");
+    let items = JSON.parse(raw_data);
+
+    if(items.length){
+	    return json(items);
+    }else{
+        return json({status: 500});
+        
+    }
+}
+
 // @ts-ignore
 export async function POST({request,cookies}) {
     const data  = await request.json();
@@ -14,7 +26,7 @@ export async function POST({request,cookies}) {
 
     //pourrait être amélioré
     let temp = JSON.parse(description);
-    temp.push(data["data"]);
+    temp.push(data);
     console.log(temp);
     let data_json = JSON.stringify(temp,null,2);
 
@@ -25,7 +37,6 @@ export async function POST({request,cookies}) {
     }else{
         return json({status: 400});
     }
-
 
 	return json({status: 201});
 }
