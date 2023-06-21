@@ -114,3 +114,10 @@ Réponse:
     "status": 201
 }
 ```
+
+## SNMP
+
+    extend nomfichier /etc/snmp/scripts/nomfichier.sh
+    snmpget -v2c -c public localhost 'NET-SNMP-EXTEND-MIB::nsExtendOutLine."nomfichier".1'
+    snmptranslate -On 'NET-SNMP-EXTEND-MIB::nsExtendOutLine."nomfichier".1'
+    snmpwalk -v2c localhost -c public .x.x.x...
