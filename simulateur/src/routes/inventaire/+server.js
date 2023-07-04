@@ -16,11 +16,10 @@ export function GET() {
 }
 
 // @ts-ignore
-export async function POST({request,cookies}) {
+export async function POST({request}) {
     const data  = await request.json();
 
     if (data != undefined) {
-    //to-dob something with the images
     // @ts-ignore
     let description = readFileSync("src/lib/images.json", "utf-8");
 

@@ -2,7 +2,7 @@
   {
     "alt": "cross",
     "file": "01.png",
-    "show": true,
+    "show": false,
     "index": 0
   },
   {
@@ -14,7 +14,7 @@
   {
     "alt": "arrow_orange",
     "file": "03.png",
-    "show": false,
+    "show": true,
     "index": 2
   },
   {

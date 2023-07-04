@@ -2,7 +2,7 @@
 
 import { json } from '@sveltejs/kit';
 // @ts-ignore
-import { readFileSync,writeFile, readdirSync, read } from 'node:fs';
+import { readFileSync,writeFile} from 'node:fs';
 
 
 //Renvoit l'image actuellement affichée
@@ -12,11 +12,7 @@ export function GET() {
     let items = JSON.parse(raw_data);
 
 	items.forEach((/** @type {{ show: boolean; }} */ img) => {
-        if(img.show == true)
-        {
-            toReturn = img;
-        }  
-      });
+        if(img.show == true){toReturn = img;}});
 
     if(toReturn == undefined){
 	    return json({status: 500});
@@ -27,7 +23,7 @@ export function GET() {
 
 
 // @ts-ignore
-export async function POST({request,cookies}) {
+export async function POST({request}) {
     const data  = await request.json();
 
     if (data != undefined) {
@@ -37,6 +33,10 @@ export async function POST({request,cookies}) {
 
     //pourrait être amélioré
     let temp = JSON.parse(description);
+    //index out of bound
+    if(temp.length < data["index"]){
+        return json({status: 404});
+    }
     
     //met à false l'affichage actuel et mettre à true le nouveau
     temp.forEach((/** @type {{ index: number,show: boolean; }} */ img) => {
@@ -49,17 +49,13 @@ export async function POST({request,cookies}) {
         }
       });
 
-    
     let data_json = JSON.stringify(temp,null,2);
 
     writeFile("src/lib/images.json", data_json, err => {
         if (err) console.log("Error writing file:", err);
     });
 
-    }else{
-        return json({status: 400});
-    }
-
+    }else{return json({status: 400});}
 
 	return json({status: 201});
 }
