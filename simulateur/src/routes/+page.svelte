@@ -42,11 +42,6 @@ items.forEach(img => {
       font-size: 5em;
     }
   
-  
-    button{
-      margin: 10px;
-    }
-  
     .fond{
       background-color: black;
       margin: auto;
