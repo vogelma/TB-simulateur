@@ -4,9 +4,7 @@
 
 Un JSON statique sert de base de données. Il contient le nom de l'image, son emplacement et si le signal est actif ou pas.
 
-## Svelte
-
-## API
+# API
 
 ## inventaire
 
